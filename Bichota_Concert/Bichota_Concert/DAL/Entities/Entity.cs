@@ -7,7 +7,7 @@ namespace Bichota_Concert.DAL.Entities
         [Key] 
         [Required] 
         public Guid Id { get; set; }
-        public DateTime? CreatedDate { get; set; }
+        //public DateTime? CreatedDate { get; set; }
         [Display(Name = "Fecha de Modificacion")]
         public DateTime? ModifiedDate { get; set; }
     }
