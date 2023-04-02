@@ -60,10 +60,20 @@ namespace Bichota_Concert.Controllers
         {
             if (ModelState.IsValid)
             {
-                ticket.Id = Guid.NewGuid();
-                _context.Add(ticket);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                try
+                {
+                    ticket.Id = Guid.NewGuid();
+                    _context.Add(ticket);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (DbUpdateException dbUpdateException)
+                {
+                    if (dbUpdateException.InnerException.Message.Contains("duplicate"))
+                    {
+                        ModelState.AddModelError(string.Empty, "El Id ya existe.");
+                    }
+                }
             }
             return View(ticket);
         }
